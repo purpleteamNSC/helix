@@ -1,27 +1,37 @@
 import os
 from dotenv import load_dotenv
 from pprint import pprint
-from fireeye import Helix as hf
-from trellix import Helix as ht
+from api.fireeye import Helix as hf
+from api.trellix import Helix as ht
+
 
 # VARIABLES
 load_dotenv()
-HELIX_ID = os.getenv("HELIX_ID")
-APIKEY = os.getenv("APIKEY")
+# FIREEYE
+HELIX_ID_FIREEYE = os.getenv("HELIX_ID_FIREEYE")
+APIKEY_FIREEYE = os.getenv("APIKEY_FIREEYE")
+
+# XDR
+HELIX_ID_XDR = os.getenv("HELIX_ID_XDR") 
+CLIENT_ID_XDR = os.getenv("CLIENT_ID_XDR") 
+SECRET_XDR = os.getenv("SECRET_XDR") 
+
+# HLX
+HELIX_ID_HLX = os.getenv("HELIX_ID_HLX") 
+CLIENT_ID_HLX = os.getenv("CLIENT_ID_HLX") 
+SECRET_HLX = os.getenv("SECRET_HLX") 
 
 
-# EXECUTION
-fireeye_tennat = hf(HELIX_ID, APIKEY)
+# EXECUTION --------------------------
 
-# v1 ------- 
-# alertas_keys = fireeye_tennat.teste().keys()
-# alertas= fireeye_tennat.teste().get('alerts',[])
-# alerta= fireeye_tennat.teste().get('alerts',[])[0]
+# FIREEYE
+fireeye = hf(HELIX_ID_FIREEYE, APIKEY_FIREEYE)
+print(fireeye.environment()) 
 
-# pprint(alerta)
+# TRELLIX XDR
+# trellix_xdr = ht(HELIX_ID_XDR,CLIENT_ID_XDR,SECRET_XDR,'XDR')
+# print(trellix_xdr.environment())
 
-# v2 -------
-alertas_keys = fireeye_tennat.teste().keys()
-alertas = fireeye_tennat.teste().get('results',[])
-alerta = fireeye_tennat.teste().get('results',[])[0]
-pprint(alerta)
+# TRELLIX HLX
+# trellix_hlx = ht(HELIX_ID_HLX,CLIENT_ID_HLX,SECRET_HLX,'HLX')
+# print(trellix_hlx.environment())

@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class Helix:
     def __init__(self, helix_id, apikey):
         self.helix_id = helix_id
@@ -11,6 +10,16 @@ class Helix:
             "x-fireeye-api-key": self.apikey,
         }
         self.base_url = f"https://apps.fireeye.com/helix/id/{self.helix_id}/api"
+
+    # ENVIROMENT
+    def environment(self):
+        resource = f"{self.base_url}/v1/environment"
+        try:
+            res = requests.get(url=resource, headers=self.headers)
+            res.raise_for_status
+            return res.json()
+        except Exception as e:
+            return 'Error ao buscar o environment'
 
     # PEGA TODAS AS QUERYS EXECUTADAS NA CONSOLE
     def get_archives(self):
