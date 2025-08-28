@@ -26,7 +26,23 @@ SECRET_HLX = os.getenv("SECRET_HLX")
 
 # FIREEYE
 fireeye = hf(HELIX_ID_FIREEYE, APIKEY_FIREEYE)
-print(fireeye.environment()) 
+# print(fireeye.environment()) 
+data = fireeye.get_alerts_v1()
+alertas = data.get('alerts', [])
+count = data['meta']['totalCount']
+
+if count != 0:
+    # for alerta in alertas:
+    #     print(alerta)
+    for alerta in alertas:
+        if "ENS" in alerta['message']:
+            print(fireeye.close_alert_by_id(alerta['displayId']))
+else:
+    print('Não existe alerta a serem excluidos')
+
+    
+
+
 
 # TRELLIX XDR
 # trellix_xdr = ht(HELIX_ID_XDR,CLIENT_ID_XDR,SECRET_XDR,'XDR')
